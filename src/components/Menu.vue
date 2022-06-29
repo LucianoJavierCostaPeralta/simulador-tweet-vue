@@ -5,8 +5,12 @@
             {{ titleMenu }}
             </span>
 
-            <button class="btn btn-success px-4">
-                {{ titleButton }}
+            <button class="btn px-4"
+                    :class="{'btn-success' : !showForm , 'btn-danger' : showForm}"
+                    @click="openCloseForm" >
+                    {{
+                        !showForm ? this.titleButton.new : this.titleButton.close
+                    }}
             </button>
         </div>
     </nav>
@@ -14,10 +18,18 @@
 
 <script>
 export default {
+    props: {
+        openCloseForm : Function,
+        showForm      : Boolean
+    },
+
     data() {
         return {
             titleMenu  : 'Simulador de tweets',
-            titleButton: 'Nuevo Tweet'
+            titleButton: {
+                new    : 'Nuevo Tweet',
+                close  : 'Cerrar Tweet'
+            }
         }
     }
 }
